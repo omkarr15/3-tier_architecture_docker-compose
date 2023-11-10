@@ -1,0 +1,33 @@
+version: "3.8"
+
+services:
+  #docker run -dit --name mydb1 --network lwnet -e MYSQL_ROOT_PASSWORD=REDHAT -e MYSQL_DATABASE=mydb -e MYSQL_USER=omkar -e MYSQL_PASSWORD=redhat -v /data:/var/lib/mysql mysql:latest
+ 
+  db:
+    image: mysql:latest
+    container_name: mydb1
+    network: 
+    - lwnet
+    volumes: 
+    - /data:/var/lib/mysql
+   
+    environment:
+      
+    - MYSQL_ROOT_PASSWORD: redhat
+    - MYSQL_DATABASE: mydb
+    - MYSQL_USER: omkar 
+    - MYSQL_PASSWORD: redhat    
+
+#docker run -dit --name mywp1 --network lwnet -p 8080:80 wordpress:latest
+  wp:
+    image: wordpress:latest
+    container_name: mywp1
+    networks:
+    - lwnet
+    ports: 
+    - 8080:80  
+    
+
+networks:
+  lwnet:
+    driver: bridge 
