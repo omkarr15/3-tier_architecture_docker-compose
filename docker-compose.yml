@@ -20,12 +20,19 @@ services:
 
 #docker run -dit --name mywp1 --network lwnet -p 8080:80 wordpress:latest
   wp:
+    depends_on:                          #depends on db service it will run after db run
+    - db
     image: wordpress:latest
     container_name: mywp1
     networks:
     - lwnet
     ports: 
     - 8080:80  
+    environment:
+    - WORDPRESS_DB_HOST=mydb1
+    - WORDPRESS_DB_USER=omkar
+    - WORDPRESS_DB_PASSWORD=redhat
+    - WORDPRESS_DB_NAME=mydb
     
 
 networks:
